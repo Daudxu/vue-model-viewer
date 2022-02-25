@@ -21,7 +21,7 @@
     "ethers.js",
     "web3js",
     "3d",
-    "glb",
+    "glb"
   ],
   "homepage": "https://github.com/Daudxu/vue-model-viewer",
   "bugs": {
