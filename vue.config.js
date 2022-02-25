@@ -11,5 +11,7 @@ module.exports = {
       // 输出文件名
       filename: 'index.html'
     }
-  }
+  },
+  publicPath: './',
+  assetsDir: 'static'
 }

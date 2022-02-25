@@ -1,5 +1,5 @@
 <template>
-  <HelloWorld msg=" plugin" />
+  <HelloWorld msg=" vue model viewer" />
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
   },
 }
 </script>
-// ethWalletModel
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
