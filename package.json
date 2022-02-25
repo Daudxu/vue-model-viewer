@@ -2,24 +2,26 @@
   "name": "vue-model-viewer",
   "version": "1.0.0",
   "private": false,
+  "description": "Easily display interactive 3D models on the web & in AR",
   "scripts": {
     "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name vue-model-viewer  --dest lib packages/index.js"
+    "lib": "vue-cli-service build --target lib --name vue-model-viewer  --dest lib packages/index.js",
+    "tonpm": "npm run build && npm version patch && npm publish"
   },
   "keyword": [
     "Dapp",
-    "wallet",
+    "nft",
     "vue",
     "model",
     "eth",
-    "web3",
-    "Provider",
     "ethers",
     "ethers.js",
-    "web3js"
+    "web3js",
+    "3d",
+    "glb",
   ],
   "homepage": "https://github.com/Daudxu/vue-model-viewer",
   "bugs": {
