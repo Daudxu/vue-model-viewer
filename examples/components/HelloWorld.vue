@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      vue-model-viewer
+     Easily display interactive 3D models on the web & in AR
     </p>
     <button @click="handleClick">Click switch </button>
     <div style="display: flex;justify-content: center; margin-top: 20px;">
