@@ -1,5 +1,5 @@
 
-# NFT Lands Tile Map Vue Component
+# vue model viewer
 
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
