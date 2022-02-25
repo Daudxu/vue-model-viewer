@@ -1,71 +1,95 @@
-
-# vue-model-viewer Component
-##  vue-model-viewer
+<h1 align="center">
+    model-viewer Vue  Component
+</h1>
 
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
 
+## Preview
+
+![preview](./images/preview.png)
+
 ## Installation
 
 ```
-npm install vue-model-viewer 
+
+npm install vue-model-viewer
+
 ```
+
 ## Usage
-### Import
 
 ```
-import 'vuemodelviewer l/vue-model-viewer .min.css';
+1. /src/main.js
+
 import { vuemodelviewer } from 'vue-model-viewer ';
-```
 
-### demo
+app.use(vuemodelviewer);
 
-```
- /src/main.js   
+2. page use
 
-
-import { createApp } from 'vue'
-import App from './App.vue'
-import '../lib/vue-model-viewer.css'
-import 'vuvue-model-viewer/vue-model-viewer.min.css';
-import { EthWalletModel } from 'vue-model-viewer';
-
-const app = createApp(App);
-app.use(EthWalletModel);
-app.mount("#app");
-
+      <vue-model-viewer ref="modelViewerRef"
+                        :viewWidth="viewWidth"
+                        :viewHeight="viewHeight">
+      </vue-model-viewer>
 
 ```
+
+## example
+
+- https://daudxu.github.io/vue-model-viewer/
+
+## demo
 
 ```
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      this plugin is Dapp wallet model Demo,
+      vue-model-viewer
     </p>
-    <button @click="handleClickConnect">Click Connect</button>
-    <eth-wallet-model ref="ethWalletModelRef"
-                      @connect="connect"
-                      @closeConnectModel="closeConnectModel"></eth-wallet-model>
+    <button @click="handleClick">Click switch </button>
+    <div style="display: flex;justify-content: center; margin-top: 20px;">
+
+      <vue-model-viewer ref="modelViewerRef"
+                        :viewWidth="viewWidth"
+                        :viewHeight="viewHeight">
+      </vue-model-viewer>
+    </div>
+
   </div>
 </template>
 
 <script>
-// import EthWalletModel from '../packages/index'
-// Vue.use(TagTextarea)
-
+import poster from "../assets/logo.png";
+import "@google/model-viewer"
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
+  data () {
+    return {
+      modelViewer: '',
+      viewWidth: 500,
+      viewHeight: 500,
+      poster: poster,
+      listglb: [
+        { 'url': './1.glb' },
+        { 'url': './2.glb' },
+        { 'url': './3.glb' }
+      ]
+    }
+  },
+  mounted () {
+    this.handleClick()
+  },
   methods: {
-    connect (provider) {
-      console.log(provider)
-    },
-    handleClickConnect () {
-      this.$refs.ethWalletModelRef.connectModel();
+    handleClick () {
+      let n = 3;
+      let random_number = Math.floor(Math.random() * Math.floor(n));
+      // console.log(random_number)
+      this.$refs.modelViewerRef.renderModel(poster, this.listglb[random_number].url);
     },
   }
 }
@@ -92,69 +116,26 @@ a {
 
 ```
 
-具体使用可参考[该文件](../../examples/landsTileMap.vue)。
+Click to view [example](../../examples/landsTileMap.vue)。
 
 ## Options
 
-| 配置项                  | 值类型   | 描述                                                                          |
-| ----------------------- | -------- | ----------------------------------------------------------------------------- |
-| providerOptions        | object    | providerOptions                                                  |
-| connect           | function | Click wallet login to return provider  object                                        |
-| closeConnectModel           | function | show/hide model box                                                 |
-
-providerOptions providerOptions
-```
-eg:  
-var providerOptions =
-{
-        network: "mainnet", // optional
-        cacheProvider: true, // optional
-        walletconnect: {
-          options: {
-            rpc: {
-              1: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-              4: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
-            },
-            bridge: 'https://bridge.walletconnect.org'
-          }
-        }
- }
-
- walletconnect  config reference resources  https://docs.walletconnect.com/quick-start/dapps/web3-provider
-```
-## Provider Events
-
-```
-// Subscribe to accounts change
-provider.on("accountsChanged", (accounts: string[]) => {
-  console.log(accounts);
-});
-
-// Subscribe to chainId change
-provider.on("chainChanged", (chainId: number) => {
-  console.log(chainId);
-});
-
-// Subscribe to provider connection
-provider.on("connect", (info: { chainId: number }) => {
-  console.log(info);
-});
-
-// Subscribe to provider disconnection
-provider.on("disconnect", (error: { code: number; message: string }) => {
-  console.log(error);
-});
-```
+| configuration item | value type | description                                                 |
+| ------------------ | ---------- | ----------------------------------------------------------- |
+| viewWidth          | number     | model width （unit： px）                                   |
+| viewHeight         | number     | model high （unit： px）                                    |
+| renderModel        | function   | parameter[1.Render loading image 2.glb source file address] |
 
 ## Features
 
-  - [X] Built for Ethereum using [Web3](https://github.com/ethereum/web3.js/).
-  - [X] Implements [Graph Protocol](https://github.com/graphprotocol) to read blockchain.
+- [x] Built for Ethereum using [Web3](https://github.com/ethereum/web3.js/).
+- [x] Implements [Graph Protocol](https://github.com/graphprotocol) to read blockchain.
+
 ## Changelog
 
-### 2022.02.21
+### 2022.02.25
 
-> v1.0.0 \* init 
+> v1.0.0 \* init model-viewer Vue Component
 
 [npm]: https://img.shields.io/npm/v/postcss-load-config.svg
 [npm-url]: https://npmjs.com/package/postcss-load-config
