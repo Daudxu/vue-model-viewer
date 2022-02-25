@@ -9,10 +9,13 @@
 export default {
   name: 'VueModelViewer',
   props: {
-    msg: String,
-    providerOptions: {
+    viewWidth: {
       type: String,
-      default: ''
+      default: '300'
+    },
+    viewHeight: {
+      type: String,
+      default: '300'
     },
   },
   data () {
@@ -22,16 +25,9 @@ export default {
   },
   methods: {
     renderModel (poster, sourceUrl) {
-      this.modelViewer = '<model-viewer  autoplay="true" camera-controls="true" animation-name="Run" interpolation-decay="200" max-camera-orbit="auto 75deg auto" min-camera-orbit="auto 75deg auto"  disable-zoom="true" id="characterMviewer" class="characterMviewer" poster="' + poster + '" src="' + sourceUrl + '" ar-status="not-presenting"></model-viewer>';
+      this.modelViewer = `<model-viewer style="width: ${this.viewWidth}px;height: ${this.viewHeight}px;"  autoplay="true" camera-controls="true" animation-name="Run" interpolation-decay="200" max-camera-orbit="auto 75deg auto" min-camera-orbit="auto 75deg auto"  disable-zoom="true" id="characterMviewer" class="characterMviewer" poster="${poster}" src="${sourceUrl}" ar-status="not-presenting"></model-viewer>`;
     },
   }
 }
 
 </script>
-<style  scoped>
-.model-viewer-warp {
-  width: 500px;
-  height: 600px;
-  background: #000;
-}
-</style>
