@@ -1,2 +1,2 @@
-# model-3d-vue-component
-model-3d-vue-component
+# vue-model-viewer
+
