@@ -5,9 +5,15 @@
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
 
+
 ## Preview
 
 ![preview](./images/preview.png)
+
+## example
+
+- https://daudxu.github.io/vue-model-viewer/
+
 
 ## Installation
 
@@ -35,9 +41,7 @@ app.use(vuemodelviewer);
 
 ```
 
-## example
 
-- https://daudxu.github.io/vue-model-viewer/
 
 ## demo
 
@@ -62,7 +66,7 @@ app.use(vuemodelviewer);
 
 <script>
 import poster from "../assets/logo.png";
-import "@google/model-viewer"
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -116,7 +120,7 @@ a {
 
 ```
 
-Click to view [example](../../examples/landsTileMap.vue)。
+Click to view [example](../../examples/vuemodelviewer.vue)。
 
 ## Options
 
