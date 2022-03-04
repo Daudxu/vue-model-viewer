@@ -36,7 +36,8 @@
   "dependencies": {
     "@google/model-viewer": "^1.10.1",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-model-viewer": "^1.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",

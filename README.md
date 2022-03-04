@@ -28,9 +28,14 @@ npm install vue-model-viewer
 ```
 1. /src/main.js
 
-import { vuemodelviewer } from 'vue-model-viewer ';
+// vue2
+import VueModelViewer from 'vue-model-viewer'
+Vue.use(VueModelViewer);
 
-app.use(vuemodelviewer);
+
+// vue3
+import VueModelViewer from 'vue-model-viewer'
+app.use(VueModelViewer);
 
 2. page use
 
@@ -55,7 +60,8 @@ app.use(vuemodelviewer);
     <button @click="handleClick">Click switch </button>
     <div style="display: flex;justify-content: center; margin-top: 20px;">
 
-      <vue-model-viewer ref="modelViewerRef"
+      <vue-model-viewer :modelAddress="modelAddress"
+                        :poster="poster"
                         :viewWidth="viewWidth"
                         :viewHeight="viewHeight">
       </vue-model-viewer>
@@ -74,7 +80,7 @@ export default {
   },
   data () {
     return {
-      modelViewer: '',
+      modelAddress: '',
       viewWidth: '500px',
       viewHeight: '500px',
       poster: poster,
@@ -92,18 +98,18 @@ export default {
     handleClick () {
       let n = 3;
       let random_number = Math.floor(Math.random() * Math.floor(n));
-      // console.log(random_number)
-      this.$refs.modelViewerRef.renderModel(poster, this.listglb[random_number].url);
+      var urlads = this.listglb[random_number].url
+      this.modelAddress = urlads
     },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 button {
   height: 30px;
   background: #42b983;
+  cursor: pointer;
 }
 h3 {
   margin: 40px 0 0;
@@ -130,9 +136,10 @@ Click to view [example](../../examples/vuemodelviewer.vue)。
 
 | configuration item | value type | description                                                 |
 | ------------------ | ---------- | ----------------------------------------------------------- |
-| viewWidth          | number     | model width （unit： px）                                   |
-| viewHeight         | number     | model high （unit： px）                                    |
-| renderModel        | function   | parameter[1.Render loading image 2.glb source file address] |
+| modelAddress          | number     | model url Address                                   |
+| poster          | number     | model poster loading image                                    |
+| viewWidth          | number     | model width （unit： px）                                    |
+| viewHeight         | number     | model high （unit： px）                                     |
 | isAutoPlay         | Boolean    | isAutoPlay true or flase |
 | isDisableZoom      | Boolean    | isDisableZoom true or flase |
 | modelId            | String   |  default: 'viewer-display'|
