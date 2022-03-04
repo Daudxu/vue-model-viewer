@@ -138,8 +138,8 @@ Click to view [example](../../examples/vuemodelviewer.vue)。
 | ------------------ | ---------- | ----------------------------------------------------------- |
 | modelAddress          | String     | model url Address                                   |
 | poster          | String     | model poster loading image                                    |
-| viewWidth          | String     | model width （unit： px）                                    |
-| viewHeight         | String     | model high （unit： px）                                     |
+| viewWidth          | String     | model width （unit： px,em,rem,vw ...）                                    |
+| viewHeight         | String     | model high （unit：  px,em,rem,vh ...）                                     |
 | isAutoPlay         | Boolean    | isAutoPlay true or flase |
 | isDisableZoom      | Boolean    | isDisableZoom true or flase |
 | modelId            | String   |  default: 'viewer-display'|
