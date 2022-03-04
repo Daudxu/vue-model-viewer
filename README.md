@@ -142,8 +142,8 @@ Click to view [example](../../examples/vuemodelviewer.vue)。
 | viewHeight         | String     | model high （unit：  px,em,rem,vh ...）                                     |
 | isAutoPlay         | Boolean    | isAutoPlay true or flase |
 | isDisableZoom      | Boolean    | isDisableZoom true or flase |
-| modelId            | String   |  default: 'viewer-display'|
-| modelClass            | String   |  modelClass: 'viewer-display'|
+| modelId            | String   |  default  'viewer-display'|
+| modelClass            | String   |  default  'viewer-display'|
 
 
 
