@@ -1,5 +1,4 @@
-// index.js
-if (process.env.NODE_ENV === 'production') { // 通过环境变量来决定入口文件
+if (process.env.NODE_ENV === 'production') {
   module.exports = require('./lib/vue-model-viewer.umd.min.js')
 } else {
   module.exports = require('./lib/vue-model-viewer.umd.js')
