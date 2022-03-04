@@ -1,6 +1,6 @@
 {
   "name": "vue-model-viewer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "description": "Easily display interactive 3D models on the web & in AR",
   "scripts": {
