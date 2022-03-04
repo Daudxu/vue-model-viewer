@@ -50,7 +50,7 @@ app.use(vuemodelviewer);
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      vue-model-viewer
+      Easily display interactive 3D models on the web & in AR
     </p>
     <button @click="handleClick">Click switch </button>
     <div style="display: flex;justify-content: center; margin-top: 20px;">
@@ -75,8 +75,8 @@ export default {
   data () {
     return {
       modelViewer: '',
-      viewWidth: 500,
-      viewHeight: 500,
+      viewWidth: '500px',
+      viewHeight: '500px',
       poster: poster,
       listglb: [
         { 'url': './1.glb' },
@@ -101,6 +101,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+button {
+  height: 30px;
+  background: #42b983;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -129,6 +133,12 @@ Click to view [example](../../examples/vuemodelviewer.vue)。
 | viewWidth          | number     | model width （unit： px）                                   |
 | viewHeight         | number     | model high （unit： px）                                    |
 | renderModel        | function   | parameter[1.Render loading image 2.glb source file address] |
+| isAutoPlay         | Boolean    | isAutoPlay true or flase |
+| isDisableZoom      | Boolean    | isDisableZoom true or flase |
+| modelId            | String   |  default: 'viewer-display'|
+| modelClass            | String   |  modelClass: 'viewer-display'|
+
+
 
 ## Features
 

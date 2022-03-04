@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-     Easily display interactive 3D models on the web & in AR
+      Easily display interactive 3D models on the web & in AR
     </p>
     <button @click="handleClick">Click switch </button>
     <div style="display: flex;justify-content: center; margin-top: 20px;">
@@ -18,7 +18,7 @@
 
 <script>
 import poster from "../assets/logo.png";
-import "@google/model-viewer"
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -27,8 +27,8 @@ export default {
   data () {
     return {
       modelViewer: '',
-      viewWidth: 500,
-      viewHeight: 500,
+      viewWidth: '500px',
+      viewHeight: '500px',
       poster: poster,
       listglb: [
         { 'url': './1.glb' },
@@ -53,6 +53,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+button {
+  height: 30px;
+  background: #42b983;
+}
 h3 {
   margin: 40px 0 0;
 }
