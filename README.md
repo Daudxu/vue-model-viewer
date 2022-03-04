@@ -136,10 +136,10 @@ Click to view [example](../../examples/vuemodelviewer.vue)。
 
 | configuration item | value type | description                                                 |
 | ------------------ | ---------- | ----------------------------------------------------------- |
-| modelAddress          | number     | model url Address                                   |
-| poster          | number     | model poster loading image                                    |
-| viewWidth          | number     | model width （unit： px）                                    |
-| viewHeight         | number     | model high （unit： px）                                     |
+| modelAddress          | String     | model url Address                                   |
+| poster          | String     | model poster loading image                                    |
+| viewWidth          | String     | model width （unit： px）                                    |
+| viewHeight         | String     | model high （unit： px）                                     |
 | isAutoPlay         | Boolean    | isAutoPlay true or flase |
 | isDisableZoom      | Boolean    | isDisableZoom true or flase |
 | modelId            | String   |  default: 'viewer-display'|
