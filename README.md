@@ -28,12 +28,7 @@ npm install vue-model-viewer
 ```
 1. /src/main.js
 
-// vue2
-import VueModelViewer from 'vue-model-viewer'
-Vue.use(VueModelViewer);
-
-
-// vue3
+// Only supports vue3
 import VueModelViewer from 'vue-model-viewer'
 app.use(VueModelViewer);
 
