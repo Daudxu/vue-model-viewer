@@ -1,6 +1,6 @@
 {
   "name": "vue-model-viewer",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "keyword": [
     "Dapp",
@@ -33,9 +33,9 @@
     "go": "npm publish"
   },
   "dependencies": {
-    "@google/model-viewer": "^1.10.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-model-viewer": "^1.0.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
