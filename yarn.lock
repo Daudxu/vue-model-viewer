@@ -8430,6 +8430,16 @@ vue-model-viewer@^1.0.2:
     core-js "^3.6.5"
     vue "^3.0.0"
 
+vue-model-viewer@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/vue-model-viewer/-/vue-model-viewer-1.0.5.tgz#17e0aaa4487fd424e246f55d9236c998262ffc3a"
+  integrity sha512-OSz2qp/qX1txGRlS7deXjYWAslmbeTu6F8/F3HIQ70aDsPNKLo0cFC1TaLCVEqdGzDQ9kvv+/5jUHJXYs4JHUQ==
+  dependencies:
+    "@google/model-viewer" "^1.10.1"
+    core-js "^3.6.5"
+    vue "^3.0.0"
+    vue-model-viewer "^1.0.2"
+
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"
   resolved "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-4.1.3.tgz#6d55863a51fa757ab24e89d9371465072aa7bc35"
