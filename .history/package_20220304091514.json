@@ -1,0 +1,72 @@
+{
+  "name": "vue-model-viewer",
+  "version": "1.0.1",
+  "private": false,
+  "description": "Easily display interactive 3D models on the web & in AR",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name vue-model-viewer  --dest lib packages/index.js",
+    "tonpm": "npm run build && npm version patch && npm publish"
+  },
+  "keyword": [
+    "Dapp",
+    "nft",
+    "vue",
+    "model",
+    "eth",
+    "ethers",
+    "ethers.js",
+    "web3js",
+    "3d",
+    "glb"
+  ],
+  "homepage": "https://github.com/Daudxu/vue-model-viewer",
+  "bugs": {
+    "url": "https://github.com/Daudxu/vue-model-viewer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Daudxu/vue-model-viewer.git"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^1.10.1",
+    "@metamask/detect-provider": "^1.2.0",
+    "@walletconnect/web3-provider": "^1.7.1",
+    "core-js": "^3.6.5",
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.15",
+    "@vue/cli-plugin-eslint": "~4.5.15",
+    "@vue/cli-service": "~4.5.15",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^6.6.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "style-loader": "^3.3.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "license": "MIT"
+}

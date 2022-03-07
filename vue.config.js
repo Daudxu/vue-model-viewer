@@ -1,7 +1,6 @@
-// vue.config.js
-
 module.exports = {
-  // 将 examples 目录添加为新的页面
+  publicPath: './',
+  assetsDir: 'static',
   pages: {
     index: {
       // page 的入口
@@ -12,6 +11,4 @@ module.exports = {
       filename: 'index.html'
     }
   },
-  publicPath: './',
-  assetsDir: 'static'
 }
