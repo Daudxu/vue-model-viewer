@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style scoped>
+.hello {
+  text-align: center;
+}
 button {
   height: 30px;
   background: #42b983;
