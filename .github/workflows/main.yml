@@ -36,7 +36,7 @@ jobs:
           BRANCH: gh-pages
           # 要发布的文件夹
           FOLDER: dist
-            Sync-Code-To-Gitee-job:
+  Sync-Code-To-Gitee-job:
     # runs-on 指定job任务运行所需要的虚拟机环境
     runs-on: ubuntu-latest
     steps:
