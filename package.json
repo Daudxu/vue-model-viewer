@@ -33,6 +33,7 @@
     "go": "npm publish"
   },
   "dependencies": {
+    "@google/model-viewer": "^1.10.1",
     "core-js": "^3.6.5",
     "three": "^0.138.3",
     "vue": "^2.6.11"
