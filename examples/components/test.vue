@@ -1,22 +1,26 @@
 <!--THREEJS组件-->
 <template>
-  <div id="modelView"  ref="mainContent">
+  <div id="modelView" v-loading="loading" ref="mainContent">
 
   </div>
 </template>
 <script>
   import * as THREE from 'three'
   import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
-  import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+  import {PLYLoader} from 'three/examples/jsm/loaders/PLYLoader.js'
+  import {PCDLoader} from 'three/examples/jsm/loaders/PCDLoader'
+  import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader'
+  import {STLLoader} from 'three/examples/jsm/loaders/STLLoader'
+import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
   export default {
-    name: "VueModelViewer",
+    name: "ThreePage",
     props: {
       /*模型资源地址*/
       ossPath: {
         type: String,
         default() {
-          return './1.glb'
+          return ''
         }
       },
       /*文件类型*/
@@ -69,7 +73,7 @@
     },
     data() {
       return {
-        // loading: false,
+        loading: false,
         publicPath: process.env.BASE_URL,
         mesh: null,
         camera: null,
@@ -92,7 +96,7 @@
         }
       },
       //监测是否更新整个场景
-      AutoFresh(val) {
+      AutoFresh(val, oldVal) {
         if (val) {
           this.init()
         } else {
@@ -101,7 +105,7 @@
         }
       },
       //监测是否展示配准,更新场景,该属性的变化只负责更新场景，具体业务交给按钮的最终展现结果，按钮勾中就展示配准，没有勾中就不展示配准，属性没变就是原来的状态。
-      showMatchWatch() {
+      showMatchWatch(val, oldVal) {
         this.init()
       },
       //由于上传标签时,CAD会绕过。
@@ -142,46 +146,38 @@
       },
       // 创建场景
       createScene() {
-        // this.loading = true;
+        this.loading = true;
         this.scene = new THREE.Scene()
-        // var grid = new THREE.GridHelper(60, 60, 0xFF0000, 0x444444);
-        // grid.material.opacity = 0.0;
-        // grid.material.transparent = true;
-        // grid.rotation.x = Math.PI / 2.0;
-        // this.scene.add(grid)
+        var grid = new THREE.GridHelper(24, 24, 0xFF0000, 0x444444);
+        grid.material.opacity = 0.4;
+        grid.material.transparent = true;
+        grid.rotation.x = Math.PI / 2.0;
+        this.scene.add(grid)
       },
       // 加载PLY模型
       loadLoader() {
-        // const THIS = this
+        const THIS = this
         // const loader = this.mapLoader();
          let loader = new GLTFLoader();
-         loader.load(
-            './1.glb',
-            gltf => {
-              this.scene.add(gltf.scene)
-            },
-            undefined,
-            undefined
-        )
-        // loader.load(window.location.origin + `/fs/files/download/6128764fac0ba25313e73b4d`, geometry => {
+        loader.load(window.location.origin + `/fs/files/download/6128764fac0ba25313e73b4d`, geometry => {
         // loader.load(THIS.ossPath, geometry => {
-        // //   geometry.center();
-        //   // this.loading = false;
-        //   // let material = null;
-        //         // this.isLoading = false;//关闭载入中效果
-        //         this.mesh = geometry.scene;
-        //         this.mesh.scale.set(0.4, 0.4, 0.4);//设置大小比例
-        //         this.mesh.position.set(0, 0, 0);//设置位置
-        //         this.scene.add(this.mesh); // 将模型引入three、
-        //         // this.animate();   
+        //   geometry.center();
+          this.loading = false;
+          let material = null;
+                // this.isLoading = false;//关闭载入中效果
+                this.mesh = geometry.scene;
+                this.mesh.scale.set(0.4, 0.4, 0.4);//设置大小比例
+                this.mesh.position.set(0, 0, 0);//设置位置
+                this.scene.add(this.mesh); // 将模型引入three、
+                // this.animate(); 
           
-        // })
+        })
         //如果有配准结果,加载配准结果,配准结果未ply格式;
       },
       // 创建光源
       createLight() {
         // 环境光
-        // let pointColor = '#ffffff';
+        let pointColor = '#ffffff';
         const ambientLight = new THREE.AmbientLight(0x222222, 0.35) // 创建环境光
         this.scene.add(ambientLight) // 将环境光添加到场景
         const spotLight = new THREE.SpotLight(0xffffff) // 创建聚光灯
@@ -189,6 +185,7 @@
         spotLight.castShadow = true;//平行光开启阴影
         spotLight.receiveShadow = true;
         this.scene.add(spotLight)
+
       },
 
       // 创建相机
@@ -238,8 +235,8 @@
 
 <style scoped>
   #modelView {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     z-index: 888;
   }
 </style>
