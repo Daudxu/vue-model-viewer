@@ -74,9 +74,9 @@
         mesh: null,
         camera: null,
         scene: null,
-        originX: 20,
+        originX: 300,
         originY: 0,
-        originZ: 20,
+        originZ: 360,
         renderer: null,
         controls: null,
       }
@@ -116,6 +116,13 @@
       destroyed() {
         this.clear();
       },
+      getFitScaleValue(obj) {
+        var boxHelper = new THREE.BoxHelper(obj);
+        boxHelper.geometry.computeBoundingBox();
+        var box = boxHelper.geometry.boundingBox;//获取模型边界
+        var maxDiameter = 1.5 * Math.max((box.max.x - box.min.x), (box.max.y - box.min.y), (box.max.z - box.min.z)); //数值越大，模型越小
+        return Math.ceil(this.camera.position.z / maxDiameter);
+      },
       // 初始化
       init() {
         /*利用vue单项数据流的特性做最后的守卫,在最底层监听是否需要展示配准图,只影响该组件的内部数据而不影响外部的matchedOssPatch*/
@@ -142,13 +149,18 @@
       },
       // 创建场景
       createScene() {
-        // this.loading = true;
         this.scene = new THREE.Scene()
-        // var grid = new THREE.GridHelper(60, 60, 0xFF0000, 0x444444);
-        // grid.material.opacity = 0.0;
-        // grid.material.transparent = true;
-        // grid.rotation.x = Math.PI / 2.0;
-        // this.scene.add(grid)
+        // 创建坐标格辅助对象.
+        var helper = new THREE.GridHelper(1200, 50, 0xCD3700, 0x4A4A4A);
+        this.scene.add(helper)
+        // 创建立方体
+        var cubeGeometry = new THREE.BoxGeometry(100, 100, 100);
+        // 创建法线网格材质
+        var cubeMaterial = new THREE.MeshNormalMaterial();
+        // 创建网格
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        // 将网格添加到场景中
+        this.scene.add(cube);
       },
       // 加载PLY模型
       loadLoader() {
@@ -159,7 +171,11 @@
             './1.glb',
             gltf => {
               this.scene.add(gltf.scene)
+              this.mesh = gltf.scene;
+              this.mesh.scale.set(60, 60, 60);//设置大小比例
+              this.mesh.position.set(0, 0, 0);
             },
+
             undefined,
             undefined
         )
