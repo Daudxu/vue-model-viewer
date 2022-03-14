@@ -6,7 +6,6 @@
     </p>
     <button @click="handleClick">Click switch </button>
     <div style="display: flex;justify-content: center; margin-top: 20px;">
-
       <vue-model-viewer :modelAddress="modelAddress"
                         :poster="poster"
                         :viewWidth="viewWidth"
@@ -25,9 +24,13 @@ export default {
   props: {
     msg: String
   },
+
   data () {
     return {
       modelAddress: '',
+      width: 300,
+      height: 300,
+      src: './1.glb',
       viewWidth: '500px',
       viewHeight: '500px',
       poster: poster,
