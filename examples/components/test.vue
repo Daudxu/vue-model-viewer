@@ -148,11 +148,17 @@ import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
       createScene() {
         this.loading = true;
         this.scene = new THREE.Scene()
-        var grid = new THREE.GridHelper(24, 24, 0xFF0000, 0x444444);
-        grid.material.opacity = 0.4;
-        grid.material.transparent = true;
-        grid.rotation.x = Math.PI / 2.0;
-        this.scene.add(grid)
+        // // 创建坐标格辅助对象.
+        // var helper = new THREE.GridHelper(1200, 50, 0xCD3700, 0x4A4A4A);
+        // this.scene.add(helper)
+        // // 创建立方体
+        // var cubeGeometry = new THREE.BoxGeometry(100, 100, 100);
+        // // 创建法线网格材质
+        // var cubeMaterial = new THREE.MeshNormalMaterial();
+        // // 创建网格
+        // var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        // // 将网格添加到场景中
+        // this.scene.add(cube);
       },
       // 加载PLY模型
       loadLoader() {

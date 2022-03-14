@@ -1,19 +1,25 @@
 <!--THREEJS组件-->
 <template>
-  <div id="modelView"  ref="mainContent">
-
+  <div id="modelView" >
+     <canvas ref="modelView" style="width: 100%; height: 100%;"></canvas>
   </div>
 </template>
 <script>
   import * as THREE from 'three'
   import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
   import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
-
   export default {
     name: "VueModelViewer",
     props: {
+      /*渲染引擎*/
+      engine: {
+        type: Number,
+        default() {
+          return 1
+        }
+      },
       /*模型资源地址*/
-      ossPath: {
+      modelAddress: {
         type: String,
         default() {
           return './1.glb'
@@ -53,24 +59,15 @@
           return ''
         }
       },
-      /*配准后的地址*/
-      matchedOssPatch: {
-        type: String,
-        default() {
-          return ''
-        }
+      webGlOptions: {
+          type: Object,
       },
-      showMatchWatch: {
-        type: Boolean,
-        default() {
-          return false
-        }
-      }
     },
     data() {
       return {
         // loading: false,
         publicPath: process.env.BASE_URL,
+        wrapper: new THREE.Object3D(),
         mesh: null,
         camera: null,
         scene: null,
@@ -86,7 +83,7 @@
     },
     watch: {
       //监听地址变化时需要更新地址,防止多次点击同一个渲染多次;
-      ossPath(val, oldVal) {
+      modelAddress(val, oldVal) {
         if (val != oldVal) {
           this.init()
         }
@@ -100,11 +97,6 @@
           this.destroyed();
         }
       },
-      //监测是否展示配准,更新场景,该属性的变化只负责更新场景，具体业务交给按钮的最终展现结果，按钮勾中就展示配准，没有勾中就不展示配准，属性没变就是原来的状态。
-      showMatchWatch() {
-        this.init()
-      },
-      //由于上传标签时,CAD会绕过。
       currentColor(val, oldVal) {
         if (val != oldVal) {
           this.init()
@@ -116,26 +108,22 @@
       destroyed() {
         this.clear();
       },
-      getFitScaleValue(obj) {
-        var boxHelper = new THREE.BoxHelper(obj);
-        boxHelper.geometry.computeBoundingBox();
-        var box = boxHelper.geometry.boundingBox;//获取模型边界
-        var maxDiameter = 1.5 * Math.max((box.max.x - box.min.x), (box.max.y - box.min.y), (box.max.z - box.min.z)); //数值越大，模型越小
-        return Math.ceil(this.camera.position.z / maxDiameter);
-      },
       // 初始化
       init() {
-        /*利用vue单项数据流的特性做最后的守卫,在最底层监听是否需要展示配准图,只影响该组件的内部数据而不影响外部的matchedOssPatch*/
-        if (!this.showMatchWatch) {
-          this.matchedOssPatch = ''
-        }
-        this.createScene() // 创建场景
-        this.loadLoader() // 加载P模型
-        this.createLight() // 创建光源
-        this.createCamera() // 创建相机
-        this.createRender() // 创建渲染器
-        this.createControls() // 创建控件对象
-        this.render() // 渲染
+        // 创建场景
+        this.createScene() 
+        // 加载P模型
+        this.loadLoader() 
+        // 创建光源
+        this.createLight() 
+        // 创建相机
+        this.createCamera() 
+        // 创建渲染器
+        this.createRender() 
+        // 创建控件对象
+        this.createControls() 
+        // 渲染
+        this.render() 
       },
       //清除当前所有场景
       clear() {
@@ -150,99 +138,80 @@
       // 创建场景
       createScene() {
         this.scene = new THREE.Scene()
-        // 创建坐标格辅助对象.
-        var helper = new THREE.GridHelper(1200, 50, 0xCD3700, 0x4A4A4A);
-        this.scene.add(helper)
-        // 创建立方体
-        var cubeGeometry = new THREE.BoxGeometry(100, 100, 100);
-        // 创建法线网格材质
-        var cubeMaterial = new THREE.MeshNormalMaterial();
-        // 创建网格
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        // 将网格添加到场景中
-        this.scene.add(cube);
       },
       // 加载PLY模型
       loadLoader() {
-        // const THIS = this
-        // const loader = this.mapLoader();
+        const _this = this
          let loader = new GLTFLoader();
          loader.load(
-            './1.glb',
+            _this.modelAddress,
             gltf => {
-              this.scene.add(gltf.scene)
               this.mesh = gltf.scene;
-              this.mesh.scale.set(60, 60, 60);//设置大小比例
-              this.mesh.position.set(0, 0, 0);
-            },
-
-            undefined,
-            undefined
+              //设置大小比例
+              this.mesh.scale.set(30, 30, 30); 
+               //设置位置
+              this.mesh.position.set(0, -30, 0); 
+              // 旋转位置
+              this.mesh.rotation.set(0, 0, 0);
+              // 将模型引入
+              this.scene.add(this.mesh); 
+            }
         )
-        // loader.load(window.location.origin + `/fs/files/download/6128764fac0ba25313e73b4d`, geometry => {
-        // loader.load(THIS.ossPath, geometry => {
-        // //   geometry.center();
-        //   // this.loading = false;
-        //   // let material = null;
-        //         // this.isLoading = false;//关闭载入中效果
-        //         this.mesh = geometry.scene;
-        //         this.mesh.scale.set(0.4, 0.4, 0.4);//设置大小比例
-        //         this.mesh.position.set(0, 0, 0);//设置位置
-        //         this.scene.add(this.mesh); // 将模型引入three、
-        //         // this.animate();   
-          
-        // })
-        //如果有配准结果,加载配准结果,配准结果未ply格式;
       },
       // 创建光源
       createLight() {
         // 环境光
-        // let pointColor = '#ffffff';
-        const ambientLight = new THREE.AmbientLight(0x222222, 0.35) // 创建环境光
-        this.scene.add(ambientLight) // 将环境光添加到场景
-        const spotLight = new THREE.SpotLight(0xffffff) // 创建聚光灯
-        spotLight.position.set(50, 50, 50)
-        spotLight.castShadow = true;//平行光开启阴影
-        spotLight.receiveShadow = true;
+        let pointColor = '0x000000';
+        // 创建环境光
+        const ambientLight = new THREE.AmbientLight(pointColor, 1) 
+        // 将环境光添加到场景
+        this.scene.add(ambientLight)
+        // 创建聚光灯
+        const spotLight = new THREE.SpotLight(0xffffff) 
+        // 创建聚光灯
+        spotLight.position.set(100, 100, 100)
+        // 加载光源
         this.scene.add(spotLight)
       },
 
       // 创建相机
       createCamera() {
-        const element = this.$refs.mainContent
-        const width = element.clientWidth // 窗口宽度
-        const height = element.clientHeight //
+        // 窗口宽度
+        const width = 300 
+        const height = 300 //
         this.cWidth = width;
         this.cHeight = height;
         const k = width / height // 窗口宽高比
         this.aspect = k;
         // PerspectiveCamera( fov, aspect, near, far )
-        this.camera = new THREE.PerspectiveCamera(35, k, 1, 10000)
-        this.camera.position.set(this.originX, this.originY, this.originZ) // 设置相机位置
-        this.camera.up.set(0, 0, 1);
+        this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100000)
+        this.camera.position.set(0, 30, 20) // 设置相机位置
+        this.camera.position.z = '90';
         this.camera.lookAt(new THREE.Vector3(this.originX, this.originY, this.originZ)) // 设置相机方向
         this.scene.add(this.camera)
       },
       // 创建渲染器
       createRender() {
-        const element = this.$refs.mainContent
-        this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true, preserveDrawingBuffer: true})
-        this.renderer.setSize(element.clientWidth, element.clientHeight) // 设置渲染区域尺寸
-        this.renderer.shadowMap.enabled = true // 显示阴影
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-        this.renderer.setClearColor(new THREE.Color(0xEEEEEE)) // 设置背景颜色
-        // this.renderer.setClearColor(new THREE.Color(0x111111)) // 设置背景颜色
-        element.innerHTML = '';
-        element.appendChild(this.renderer.domElement)
+        const OPTIONS = {
+            antialias: true,
+            alpha: true,
+        };
+        const options = Object.assign({}, OPTIONS, this.webGlOptions, {
+            canvas: this.$refs.modelView,
+         });
+        this.renderer = new THREE.WebGLRenderer(options)
+        // 设置渲染区域尺寸
+        this.renderer.setSize(300, 300) 
       },
       render() {
         this.animationId = requestAnimationFrame(this.render);//旋转动画;
         this.renderer.render(this.scene, this.camera)
-        this.controls.update();
       },
       // 创建控件对象
       createControls() {
         this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+        this.controls.type = 'orbit';
+        this.scene.add(this.wrapper);
       },
       onWindowResize() {
         this.camera.aspect = this.aspect;
@@ -253,9 +222,4 @@
 </script>
 
 <style scoped>
-  #modelView {
-    width: 300px;
-    height: 300px;
-    z-index: 888;
-  }
 </style>
