@@ -1,10 +1,19 @@
 <!--THREEJS组件-->
 <template>
-  <div id="modelView" >
-     <canvas ref="modelView" style="width: 100%; height: 100%;"></canvas>
+  <div class="vue-model-viewer"
+       id="vue-model-viewer"
+       v-if="engine === 1"
+       v-html="renderModela">
   </div>
+  <div class="vue-model-viewer"
+      id="vue-model-viewer"
+      v-else >
+      <canvas ref="modelView" style="width: 100%; height: 100%;"></canvas>
+ </div>
+
 </template>
 <script>
+  import "@google/model-viewer"
   import * as THREE from 'three'
   import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
   import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
@@ -45,27 +54,42 @@
           return true
         }
       },
-      /*当前模型的颜色*/
-      currentColor: {
-        type: String,
-        default() {
-          return ''
-        }
-      },
-      /*配准后的颜色*/
-      matchedColor: {
-        type: String,
-        default() {
-          return ''
-        }
-      },
       webGlOptions: {
           type: Object,
       },
+       viewWidth: {
+        type: String,
+        default: '300px'
+      },
+        viewHeight: {
+        type: String,
+        default: '300px'
+      },
+      poster: {
+        type: String,
+        default: ''
+      },
+      isAutoPlay: {
+        type: Boolean,
+        default: true
+      },
+      isDisableZoom: {
+        type: Boolean,
+        default: true
+      },
+      modelId: {
+        type: String,
+        default: 'viewer-display'
+      },
+      modelClass: {
+        type: String,
+        default: 'viewer-display'
+      }
     },
     data() {
       return {
         // loading: false,
+        renderModela: '',
         publicPath: process.env.BASE_URL,
         wrapper: new THREE.Object3D(),
         mesh: null,
@@ -79,13 +103,21 @@
       }
     },
     mounted() {
-      this.init()
+      if(this.engine === 2){
+          this.init()
+      }
     },
     watch: {
       //监听地址变化时需要更新地址,防止多次点击同一个渲染多次;
       modelAddress(val, oldVal) {
-        if (val != oldVal) {
-          this.init()
+        console.log("val",val)
+        console.log("oldVal",oldVal)
+        if(this.engine === 2){
+          if (val != oldVal) {
+            this.init()
+          }
+        }else{
+          this.renderModela = `<model-viewer style="width: ${this.viewWidth};height: ${this.viewHeight};"  autoplay="${this.isAutoPlay}" camera-controls="true" animation-name="Run" interpolation-decay="200" max-camera-orbit="auto 75deg auto" min-camera-orbit="auto 75deg auto"  disable-zoom="${this.isDisableZoom}" id="${this.modelClass}" class="${this.modelId}" poster="${this.poster}" src="${val}" ar-status="not-presenting"></model-viewer>`;
         }
       },
       //监测是否更新整个场景
@@ -95,11 +127,6 @@
         } else {
           //自我清理
           this.destroyed();
-        }
-      },
-      currentColor(val, oldVal) {
-        if (val != oldVal) {
-          this.init()
         }
       }
     },
