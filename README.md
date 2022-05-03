@@ -153,7 +153,7 @@ Click to view [example](../../examples/vuemodelviewer.vue)。
 ### 2022.02.25
 
 > v1.0.0 \* init model-viewer Vue Component
-
+ 
 [npm]: https://img.shields.io/npm/v/postcss-load-config.svg
 [npm-url]: https://npmjs.com/package/postcss-load-config
 [node]: https://img.shields.io/node/v/postcss-load-plugins.svg
