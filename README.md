@@ -24,7 +24,7 @@ npm install vue-model-viewer
 
 ```
 
-## Usage
+## Usage 
 
 ```
 1. /src/main.js
